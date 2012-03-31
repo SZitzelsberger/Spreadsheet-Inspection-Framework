@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. -->
+
+<project basedir="." default="build" name="spreadsheet_inspection_framework">
+	<property environment="env" />
+	<property name="debuglevel" value="source,lines,vars" />
+	<property name="target" value="1.6" />
+	<property name="source" value="1.6" />
+	<property name="jar.dir" value="jar" />
+
+	<property name="folderpath" value="C:/Dokumente und Einstellungen/Administrator/Eigene Dateien/phase2/" />
+	<property name="maxNumberOfOperands" value="" />
+	<property name="maxNestingLevel" value="" />
+	<property name="allowedConstants" value="" />
+	<property name="ignoredFunctions" value="" />
+
+	<path id="spreadsheet_inspection_framework.classpath">
+		<pathelement location="bin" />
+		<pathelement location="libs/commons-logging-1.1.jar" />
+		<pathelement location="libs/dom4j-1.6.1.jar" />
+		<pathelement location="libs/guava-10.0.1.jar" />
+		<pathelement location="libs/jsr173_1.0_api.jar" />
+		<pathelement location="libs/junit-3.8.1.jar" />
+		<pathelement location="libs/log4j-1.2.13.jar" />
+		<pathelement location="libs/poi-3.8-beta4-20110826.jar" />
+		<pathelement location="libs/poi-examples-3.8-beta4-20110826.jar" />
+		<pathelement location="libs/poi-excelant-3.8-beta4-20110826.jar" />
+		<pathelement location="libs/poi-ooxml-3.8-beta4-20110826.jar" />
+		<pathelement location="libs/poi-ooxml-schemas-3.8-beta4-20110826.jar" />
+		<pathelement location="libs/poi-scratchpad-3.8-beta4-20110826.jar" />
+		<pathelement location="libs/resolver.jar" />
+		<pathelement location="libs/stax-api-1.0.1.jar" />
+		<pathelement location="libs/xbean_xpath.jar" />
+		<pathelement location="libs/xbean.jar" />
+		<pathelement location="libs/xmlbeans-2.3.0.jar" />
+		<pathelement location="libs/xmlbeans-qname.jar" />
+		<pathelement location="libs/xmlpublic.jar" />
+		<pathelement location="libs/ant.jar" />
+	</path>
+
+
+	<target name="init">
+		<mkdir dir="bin" />
+
+		<copy includeemptydirs="false" todir="bin">
+			<fileset dir="src">
+				<exclude name="**/*.java" />
+			</fileset>
+		</copy>
+		<copy includeemptydirs="false" todir="bin">
+			<fileset dir="test">
+				<exclude name="**/*.java" />
+			</fileset>
+		</copy>
+
+		<copy includeemptydirs="false" todir="${jar.dir}/libs">
+			<fileset dir="libs">
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="clean">
+		<delete dir="bin" />
+		<delete dir="jar" />
+	</target>
+
+
+	<target depends="build-subprojects,build-project" name="build" />
+
+	<target name="build-subprojects" />
+
+	<target depends="clean,init" name="build-project">
+		<echo message="${ant.project.name}: ${ant.file}" />
+		<javac debug="true" debuglevel="${debuglevel}" destdir="bin" source="${source}" target="${target}" includeantruntime="false">
+			<src path="src" />
+			<classpath refid="spreadsheet_inspection_framework.classpath" />
+		</javac>
+		<javac debug="true" debuglevel="${debuglevel}" destdir="bin" source="${source}" target="${target}" includeantruntime="false">
+			<src path="test" />
+			<classpath refid="spreadsheet_inspection_framework.classpath" />
+		</javac>
+
+		<path id="build-classpath">
+			<fileset dir="${jar.dir}/libs">
+				<include name="*.jar" />
+			</fileset>
+		</path>
+		<manifestclasspath property="lib.list" jarfile="${jar.dir}/sif.jar">
+			<classpath refid="build-classpath" />
+		</manifestclasspath>
+		<jar jarfile="${jar.dir}/sif.jar" basedir="bin" update="true">
+			<manifest>
+				<attribute name="Class-Path" value="${lib.list}" />
+			</manifest>
+		</jar>
+
+	</target>
+
+
+	<target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects" />
+	<target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
+		<copy todir="${ant.library.dir}">
+			<fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar" />
+		</copy>
+		<unzip dest="${ant.library.dir}">
+			<patternset includes="jdtCompilerAdapter.jar" />
+			<fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar" />
+		</unzip>
+	</target>
+	<target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
+		<property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter" />
+		<antcall target="build" />
+	</target>
+
+
+
+
+
+
+</project>
